@@ -1,10 +1,12 @@
 public class Main {
     
     public static void main(String[] args) {
-        Customer charleeCustomer = new Customer();
-        Customer quinnCustomer = new Customer();
+        Customer c = new Customer();
+        c.customerInput();
 
-        System.out.println(charleeCustomer.name);
-        System.out.println(quinnCustomer.gallonsUsed);
+        c.calculateBill();
+        c.printBill();
+
+        Customer c1 = new Customer("alice", 2000, 0);
     }
 }

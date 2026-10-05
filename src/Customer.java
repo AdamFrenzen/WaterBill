@@ -9,21 +9,66 @@ public class Customer {
     final int SINGLE_TIER2 = 6000;
     final double SINGLE_TIER2_COST = 2.35;
     final double SINGLE_TIER3_COST = 2.70;
-
     final double DUPLEX_BASE = 15.51;
     final int DUPLEX_TIER1 = 9000;
     final double DUPLEX_TIER1_COST = 1.97;
     final int DUPLEX_TIER2 = 4000;
     final double DUPLEX_TIER2_COST = 2.26;
     final double DUPLEX_TIER3_COST = 2.60;
-
     final int TIER2_CUTOFF = 13000;
     final double GALLONS = 1000.0;
 
-    String name;
-    int gallonsUsed;
-    int customerType;
-    double bill;
+    private String name;
+    private int gallonsUsed;
+    private int customerType;
+    private double bill;
+
+    public Customer() {
+        System.out.println("this is a customer");
+    }
+
+    public Customer(String name, int gallonsUsed, int customerType) {
+        System.out.println("this is a diff customer");
+        setName(name);
+        setGallonsUsed(gallonsUsed);
+        setCustomerType(customerType);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getCustomerType() {
+        return customerType;
+    }
+
+    public double getBill() {
+        return bill;
+    }
+
+    public int getGallonsUsed() {
+        return gallonsUsed;
+    }
+
+    public void setGallonsUsed(int gallonsUsed) {
+        if (gallonsUsed < 0) {
+            System.out.println("Gallons must be positive");
+        } else {
+            this.gallonsUsed = gallonsUsed;
+        }
+    }
+
+    public void setCustomerType(int customerType) {
+        this.customerType = customerType;
+    }
+
+    public void setName(String name) {
+        if (name.equals("") || name == null) {
+            System.out.println("Must have a name");
+        } else {
+            this.name = name;
+        }
+    }
 
     public void customerInput() {
         InputStreamReader inputStreamReader = new InputStreamReader(System.in);
@@ -35,7 +80,7 @@ public class Customer {
             System.out.print("Enter Customer Type (1: SingleFamily, 2: Duplex): ");
             customerType = Integer.parseInt(bufferedReader.readLine());
             System.out.print("Enter gallons used: ");
-            gallonsUsed = Integer.parseInt(bufferedReader.readLine());
+            setGallonsUsed(Integer.parseInt(bufferedReader.readLine()));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -72,6 +117,6 @@ public class Customer {
     }
 
     public void printBill() {
-        System.out.println("The bill is" + bill);
+        System.out.println("The bill is " + bill);
     }
 }
