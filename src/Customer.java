@@ -10,6 +10,7 @@ public class Customer {
     private int gallonsUsed;
     private int customerType;
     protected double bill;
+    private boolean lowIncome;
 
     public Customer() {
         System.out.println("this is a customer");
