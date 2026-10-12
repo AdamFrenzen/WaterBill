@@ -1,12 +1,10 @@
 public class Main {
     
     public static void main(String[] args) {
-        Customer c = new Customer();
-        c.customerInput();
+        Customer customer = new SingleFamily();
 
-        c.calculateBill();
-        c.printBill();
+        Customer customer1 = new Duplex();
 
-        Customer c1 = new Customer("alice", 2000, 0);
+
     }
 }
