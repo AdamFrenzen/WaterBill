@@ -8,6 +8,28 @@ class CustomerTest {
     //
 
     @Test
+    public void testSingleFamilyTier1LowIncome() {
+        SingleFamily customer = new SingleFamily();
+        customer.setGallonsUsed(6000);
+        customer.setLowIncome(true);
+        customer.calculateBill();
+        customer.applyDiscount();
+
+        assertEquals(22.90, customer.getBill(), 0.01);
+    }
+
+    @Test
+    public void testSingleFamilyTier1NotLowIncome() {
+        SingleFamily customer = new SingleFamily();
+        customer.setGallonsUsed(6000);
+        customer.setLowIncome(false);
+        customer.calculateBill();
+        customer.applyDiscount();
+
+        assertEquals(25.45, customer.getBill(), 0.01);
+    }
+
+    @Test
     public void testSingleFamilyTier1(){
         Customer customer = new SingleFamily();
         customer.setGallonsUsed(6000);
@@ -34,7 +56,6 @@ class CustomerTest {
         assertEquals(27.490, customer.getBill(), 0.01);
     }
 
-
     //
     //Single Family Tier 2 Testing
     //
@@ -45,7 +66,6 @@ class CustomerTest {
         customer.calculateBill();
         assertEquals(32.190, customer.getBill(), 0.01);
     }
-
 
     @Test
     public void testSingleFamily_Above7000(){
@@ -95,7 +115,6 @@ class CustomerTest {
         assertEquals(41.59, customer.getBill(), 0.01);
     }
 
-
     //
     //Duplex Tier 1 Testing
     //
@@ -107,7 +126,6 @@ class CustomerTest {
 
         assertEquals(27.33, customer.getBill(), 0.01);
     }
-
 
     @Test
     public void testDuplex_Below9000(){
@@ -127,7 +145,6 @@ class CustomerTest {
         assertEquals(33.24, customer.getBill(), 0.01);
     }
 
-
     //
     //Duplex Tier 2 Testing
     //
@@ -138,7 +155,6 @@ class CustomerTest {
         customer.calculateBill();
         assertEquals(35.50, customer.getBill(), 0.01);
     }
-
 
     @Test
     public void testDuplex_Above9000(){
@@ -188,43 +204,38 @@ class CustomerTest {
         assertEquals(42.28, customer.getBill(), 0.01);
     }
 
-
     @Test
     void testNegativeGallons() {
-        Customer customer = new Customer();
+        Customer customer = new SingleFamily();
         customer.setGallonsUsed(-100);
         assertEquals(0, customer.getGallonsUsed());
     }
 
     @Test
     void testZeroGallons() {
-        Customer customer = new Customer();
+        Customer customer = new SingleFamily();
         customer.setGallonsUsed(0);
         assertEquals(0, customer.getGallonsUsed());
     }
 
     @Test
     void testValidGallons() {
-        Customer customer = new Customer();
+        Customer customer = new SingleFamily();
         customer.setGallonsUsed(5000);
         assertEquals(5000, customer.getGallonsUsed());
     }
 
-
     @Test
     void testEmptyName() {
-        Customer customer = new Customer();
+        Customer customer = new SingleFamily();
         customer.setName("");
         assertNull(customer.getName());
     }
 
     @Test
     void testValidName() {
-        Customer customer = new Customer();
+        Customer customer = new SingleFamily();
         customer.setName("John Smith");
         assertEquals("John Smith", customer.getName());
     }
-
-
-
 }

@@ -4,5 +4,11 @@ public class Main {
         SingleFamily customer = new SingleFamily();
         customer.calculateBill();
         customer.applyDiscount();
+
+        Duplex duplex = new Duplex();
+
+        TownHouse townHouse = new TownHouse();
+        townHouse.calculateBill();
+        townHouse.printBill();
     }
 }

@@ -2,7 +2,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class Customer {
+public abstract class Customer {
     final int TIER2_CUTOFF = 13000;
     final double GALLONS = 1000.0;
 
@@ -75,8 +75,7 @@ public class Customer {
         }
     }
 
-    public void calculateBill() {
-    }
+    public abstract void calculateBill();
 
     public void printBill() {
         System.out.println("The bill is " + bill);
