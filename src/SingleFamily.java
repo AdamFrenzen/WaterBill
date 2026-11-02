@@ -12,6 +12,17 @@ public class SingleFamily extends Customer {
 
     private boolean lowIncome;
 
+    public SingleFamily() {
+        super();
+        System.out.println("single family constructor");
+    }
+
+    public SingleFamily(String name, int gallonsUsed, boolean lowIncome) {
+        super(name, gallonsUsed);
+        setLowIncome(lowIncome);
+        System.out.println("single family constructor 2");
+    }
+
     public boolean getLowIncome() {
         return lowIncome;
     }
@@ -35,7 +46,9 @@ public class SingleFamily extends Customer {
         }
     }
 
-    public void calculateBill() {
+    @Override
+    public double calculateBill() {
+        double bill;
         if (getGallonsUsed() <= SINGLE_TIER1) {
             bill = SINGLE_BASE + getGallonsUsed() * (SINGLE_TIER1_COST / GALLONS);
         } else if (getGallonsUsed() <= TIER2_CUTOFF) {
@@ -48,11 +61,15 @@ public class SingleFamily extends Customer {
                     + (getGallonsUsed() - TIER2_CUTOFF) * (SINGLE_TIER3_COST /
                     GALLONS);
         }
+        return bill;
     }
 
-    public void applyDiscount() {
+    @Override
+    public double applyDiscount(double bill) {
         if (lowIncome) {
             bill = bill * 0.90;
         }
+
+        return bill;
     }
 }

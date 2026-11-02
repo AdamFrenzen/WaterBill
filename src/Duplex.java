@@ -6,7 +6,19 @@ public class Duplex extends Customer {
     final double DUPLEX_TIER2_COST = 2.26;
     final double DUPLEX_TIER3_COST = 2.60;
 
-    public void calculateBill() {
+    public Duplex() {
+        super();
+        System.out.println("duplex constructor");
+    }
+
+    public Duplex(String name, int gallonsUsed) {
+        super(name, gallonsUsed);
+        System.out.println("duplex constructor 2");
+    }
+
+    @Override
+    public double calculateBill() {
+        double bill;
         if (getGallonsUsed() <= DUPLEX_TIER1) {
             bill = DUPLEX_BASE + getGallonsUsed() * (DUPLEX_TIER1_COST / GALLONS);
         } else if (getGallonsUsed() <= TIER2_CUTOFF) {
@@ -19,5 +31,6 @@ public class Duplex extends Customer {
                     + (getGallonsUsed() - TIER2_CUTOFF) * (DUPLEX_TIER3_COST /
                     GALLONS);
         }
+        return bill;
     }
 }
