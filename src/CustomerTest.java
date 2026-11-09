@@ -238,4 +238,10 @@ class CustomerTest {
         customer.setName("John Smith");
         assertEquals("John Smith", customer.getName());
     }
+
+    @Test
+    void testGetHighestCustomerNoCustomer() {
+        Customer.getAllCustomers().clear();
+        assertThrows(NoCustomerException.class, Customer::getHighestCustomer);
+    }
 }

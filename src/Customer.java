@@ -1,9 +1,14 @@
+import org.junit.jupiter.params.shadow.com.univocity.parsers.common.DataValidationException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 
-public abstract class Customer {
+public abstract class Customer implements Comparable<Customer> {
     final int TIER2_CUTOFF = 13000;
     final double GALLONS = 1000.0;
 
@@ -59,7 +64,7 @@ public abstract class Customer {
 
     public void setName(String name) {
         if (name.equals("") || name == null) {
-            System.out.println("Must have a name");
+            throw new DataValidationException("Must have a name");
         } else {
             this.name = name;
         }
@@ -75,9 +80,11 @@ public abstract class Customer {
 
         try {
             System.out.print("Enter Customer Name: ");
-            name = bufferedReader.readLine();
-//            System.out.print("Enter Customer Type (1: SingleFamily, 2: Duplex): ");
-//            customerType = Integer.parseInt(bufferedReader.readLine());
+            try {
+                setName(bufferedReader.readLine());
+            } catch (DataValidationException e) {
+                System.out.print(e);
+            }
             System.out.print("Enter gallons used: ");
             setGallonsUsed(Integer.parseInt(bufferedReader.readLine()));
         } catch (IOException e) {
@@ -108,8 +115,51 @@ public abstract class Customer {
         return "Name " + getName();
     }
 
-    public static Customer getHighestCustomer() {
+    public static void sortByBill() {
+//        Collections.sort(getAllCustomers());
 
-        return null;
+        getAllCustomers().sort(Comparator.comparingDouble(Customer::getBill));
+    }
+
+    @Override
+    public int compareTo(Customer o) {
+        return Double.compare(this.getBill(), o.getBill());
+    }
+
+    public static void statReport() {
+        try {
+            System.out.println(getHighestCustomer());
+        } catch (NoCustomerException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void awardLoyaltyReward() {
+        try {
+            System.out.println("Reward award: " + getHighestCustomer());
+        } catch (NoCustomerException e) {
+            System.out.println("There are no rewards to award");
+        }
+    }
+
+    public static Customer getHighestCustomer() throws NoCustomerException {
+        if (getAllCustomers().isEmpty()) {
+            throw new NoCustomerException("No Customer exists");
+        }
+
+        try {
+            Customer max = getAllCustomers().get(0);
+
+            for (Customer c : getAllCustomers()) {
+                if (c.getBill() > max.getBill()) {
+                    max = c;
+                }
+            }
+
+            return max;
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("No customers");
+            return null;
+        }
     }
 }
